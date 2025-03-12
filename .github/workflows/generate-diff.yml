@@ -28,6 +28,13 @@ jobs:
           ref: main
           path: main
 
+      - name: NCTL-scan-installer
+        uses: supplypike/setup-bin@v4
+        with:
+          uri: 'https://nirmata-downloads.s3.us-east-2.amazonaws.com/nctl/nctl_4.3.5/nctl_4.3.5_linux_386.zip'
+          name: 'nctl'
+          version: '4.3.5'
+
       - name: Generate Diff
         run: |
           docker run \
@@ -40,8 +47,14 @@ jobs:
             -e REPO=${{ github.repository }} \
             dagandersen/argocd-diff-preview:v0.0.35
             
-          cat output/diff.md
+          #cat output/diff.md
+          echo "Output yaml" 
           cat ./output/target/nginx-ingress
+
+      - name: Run scan
+        run: |
+          nctl scan kubernetes -p policy-scan -r ./output/target/nginx-ingress --details --audit-as-warn --publish
+          echo "nctl Scan completed"
 
       - name: Post diff as comment
         run: |
