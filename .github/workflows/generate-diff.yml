@@ -39,6 +39,9 @@ jobs:
             -e TARGET_BRANCH=${{ github.head_ref }} \
             -e REPO=${{ github.repository }} \
             dagandersen/argocd-diff-preview:v0.0.35
+            
+          cat output/diff.md
+          cat ./output/target/nginx-ingress
 
       - name: Post diff as comment
         run: |
