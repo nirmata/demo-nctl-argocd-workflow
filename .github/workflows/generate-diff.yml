@@ -31,9 +31,9 @@ jobs:
       - name: NCTL-scan-installer
         uses: supplypike/setup-bin@v4
         with:
-          uri: 'https://nirmata-downloads.s3.us-east-2.amazonaws.com/nctl/nctl_4.3.5/nctl_4.3.5_linux_386.zip'
+          uri: 'https://nirmata-downloads.s3.us-east-2.amazonaws.com/nctl/nctl_4.4.2/nctl_4.4.2_linux_386.zip'
           name: 'nctl'
-          version: '4.3.5'
+          version: '4.4.2'
 
       - name: Generate Diff
         run: |
@@ -53,7 +53,7 @@ jobs:
 
       - name: Run scan
         run: |
-          nctl scan kubernetes -p policy-scan -r ./output/target/nginx-ingress --details --audit-as-warn --publish
+          nctl scan kubernetes -p policy-scan -r ./output/target/nginx-ingress --details --audit-as-warn
           echo "nctl Scan completed"
 
       - name: Post diff as comment
