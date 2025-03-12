@@ -1,9 +1,8 @@
 name: Generate Diff
 
 on:
-  # Triggers the workflow on push or pull request events but only for the "main" branch
-  push:
-    branches: ["main"]
+  # Triggers the workflow on  pull request events but only for the "main" branch
+  
   pull_request:
     branches: ["main"]
 
@@ -17,6 +16,13 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          path: pull-request
+
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          path: main
 
       - name: NCTL-scan-installer
         uses: supplypike/setup-bin@v4
@@ -38,7 +44,7 @@ jobs:
             dagandersen/argocd-diff-preview:v0.0.35
             
           #cat output/diff.md
-          echo "Output yaml" 
+          echo "Updated yaml" 
           cat ./output/target/nginx-ingress
 
       - name: Run scan
