@@ -50,7 +50,8 @@ jobs:
       - name: Run scan
         run: |
           pwd
-          nctl scan kubernetes -p main/policy-scan -r ./output/target/nginx-ingress --details --audit-as-warn
+          nctl scan kubernetes -p main/policy-scan -r ./output/target/nginx-ingress --details 
+          # --audit-as-warn
           echo "nctl Scan completed"
 
       - name: Post diff as comment
